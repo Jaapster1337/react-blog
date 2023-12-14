@@ -1,0 +1,17 @@
+.truncated-post{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.truncated-post p {
+    padding: 0;
+    margin: 0;
+}
+
+.post-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
