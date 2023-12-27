@@ -1,10 +1,14 @@
 import React, {useState} from "react";
 import './NewPost.css'
 import {calcReadTime} from '../../helpers/calcReadTime.jsx'
+import axios from "axios";
+import {Link, NavLink, redirect, useNavigate} from "react-router-dom";
 
 
 
-export function NewPost() {
+export function NewPost({blogState, error, setError}) {
+    let posted = false;
+    const [succesState, setSuccesState] = useState(false)
     const [formState, setFormState] = useState({
         title: "",
         subtitle: "",
@@ -25,16 +29,35 @@ export function NewPost() {
         });
     }
 
-    function submitForm(e) {
+    async function submitForm(e) {
         e.preventDefault()
         formState.readTime = calcReadTime(formState.content)
         const date = new Date()
         formState.created = date.toISOString()
-        console.log(formState)
+        try{
+            const response = await axios.post('http://localhost:3000/posts',
+                {
+                    "title": formState.title,
+                    "subtitle": formState.subtitle,
+                    "content": formState.content,
+                    "author": formState.author,
+                    "created": formState.created,
+                    "readTime": formState.readTime,
+                    "comments": formState.comments,
+                    "shares": formState.shares,
+                })
+            setSuccesState(true)
+        } catch (e){
+            console.error(e)
+        }
     }
 
     return (
         <>
+            {(succesState === true) &&
+                <div className="succesful-submit-message">
+                    <p>De blogpost is succesvol toegevoegd. Je kunt deze hier <NavLink to={`/DetailPage/${Object.keys(blogState).length}`}>link</NavLink> bekijken.</p>
+                </div>}
             <section className="outer-container">
                 <div className="form-container">
                     <form className="form">

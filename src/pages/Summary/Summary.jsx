@@ -1,20 +1,20 @@
-import posts from './../../constants/data.json';
 import './Summary.css'
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
-export function Summary() {
-    let postArray = posts
+export function Summary({blogState}) {
+
     return (
         <>
             <h1>Dit is de overzichtspagina</h1>
-            <p>Er zijn in totaal {posts.length} posts</p>
+            <p>Er zijn in totaal {blogState.length} posts</p>
 
-            {postArray = postArray.map((post) => {
+            {Object.keys(blogState).length > 0 &&
+                blogState?.map((blogState) => {
                 return (
-                    <section className="post-wrapper">
-                        <div className="truncated-post" key={post.id}>
-                            <p><Link to={`/DetailPage/${post.id}`}> {post.title} ({post.author})</Link></p>
-                            <p>{post["comments"]} reacties - {post["shares"]} keer gedeeld</p>
+                    <section className="post-wrapper" key={blogState.id}>
+                        <div className="truncated-post" >
+                            <p><Link to={`/DetailPage/${blogState.id}`}> {blogState.title} ({blogState.author})</Link></p>
+                            <p>{blogState["comments"]} reacties - {blogState["shares"]} keer gedeeld</p>
                         </div>
                     </section>
                 );

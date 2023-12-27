@@ -7,7 +7,7 @@ export function Nav() {
         <>
             <nav>
                     <NavLink className={({isActive}) => isActive ? 'active-menu-link' : 'default-menu-link'}
-                                 to="/">Home</NavLink>
+                                 to='/'>Home</NavLink>
                     <NavLink className={({isActive}) => isActive ? 'active-menu-link' : 'default-menu-link'}
                                  to="/summary">Overzicht</NavLink>
                     <NavLink className={({isActive}) => isActive ? 'active-menu-link' : 'default-menu-link'}
